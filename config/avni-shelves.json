@@ -1,0 +1,271 @@
+{
+  "version": 1,
+  "shelves": [
+    {
+      "hue": 0,
+      "keywords": [],
+      "domains": [],
+      "name": "Social",
+      "id": "BF8F9C01-3895-4E39-8882-70864B9DB77C",
+      "symbol": "person.2"
+    },
+    {
+      "hue": 0,
+      "id": "481C1B7F-3F8C-4F61-945F-43C352FE5D93",
+      "name": "Work",
+      "symbol": "briefcase",
+      "domains": [],
+      "keywords": []
+    },
+    {
+      "id": "work-code",
+      "name": "Code",
+      "hue": 0.58,
+      "parentID": "481C1B7F-3F8C-4F61-945F-43C352FE5D93",
+      "domains": [],
+      "keywords": [],
+      "symbol": "chevron.left.forwardslash.chevron.right"
+    },
+    {
+      "domains": [],
+      "parentID": "481C1B7F-3F8C-4F61-945F-43C352FE5D93",
+      "symbol": "bubble.left.and.bubble.right",
+      "id": "work-chat",
+      "name": "Slack & calendar",
+      "hue": 0.15,
+      "keywords": []
+    },
+    {
+      "symbol": "doc.text",
+      "parentID": "481C1B7F-3F8C-4F61-945F-43C352FE5D93",
+      "name": "Docs & notes",
+      "id": "work-docs",
+      "hue": 0.04,
+      "domains": [],
+      "keywords": []
+    },
+    {
+      "id": "A5FAA392-4FB0-4D60-97F7-4627BD682BD9",
+      "hue": 0,
+      "symbol": "sparkles",
+      "domains": [
+        "arxiv.org",
+        "openreview.net",
+        "semanticscholar.org",
+        "acm.org",
+        "ieee.org",
+        "paperswithcode.com",
+        "nature.com",
+        "springer.com",
+        "doi.org",
+        "nih.gov",
+        "scholar.google.com"
+      ],
+      "name": "AI research",
+      "keywords": [
+        "arxiv",
+        "technical report"
+      ]
+    },
+    {
+      "domains": [],
+      "keywords": [],
+      "hue": 0,
+      "name": "Pre-training",
+      "parentID": "A5FAA392-4FB0-4D60-97F7-4627BD682BD9",
+      "symbol": "bookmark",
+      "id": "A121493E-EEBF-45E3-83F9-BE3342E26EE0"
+    },
+    {
+      "symbol": "bookmark",
+      "id": "6E7B4FF9-7A72-49D2-A8FA-FB0B31572157",
+      "name": "Post-training",
+      "keywords": [],
+      "hue": 0,
+      "domains": [],
+      "parentID": "A5FAA392-4FB0-4D60-97F7-4627BD682BD9"
+    },
+    {
+      "symbol": "bookmark",
+      "parentID": "A5FAA392-4FB0-4D60-97F7-4627BD682BD9",
+      "hue": 0,
+      "id": "65D72F79-4F46-4ED7-A073-B86728DE3419",
+      "keywords": [],
+      "domains": [],
+      "name": "Architecture & infra"
+    },
+    {
+      "name": "Evals",
+      "hue": 0,
+      "symbol": "bookmark",
+      "id": "4E263D04-0B4D-4C6A-849C-0EAB6818A692",
+      "domains": [],
+      "parentID": "A5FAA392-4FB0-4D60-97F7-4627BD682BD9",
+      "keywords": []
+    },
+    {
+      "parentID": "A5FAA392-4FB0-4D60-97F7-4627BD682BD9",
+      "domains": [],
+      "symbol": "eye",
+      "keywords": [],
+      "name": "Interpretability",
+      "id": "AC43564D-197B-4C77-9003-E01F49058106",
+      "hue": 0
+    },
+    {
+      "id": "8A9B3927-4B27-4F6A-949F-B7F5BFE21DB8",
+      "domains": [],
+      "keywords": [],
+      "parentID": "A5FAA392-4FB0-4D60-97F7-4627BD682BD9",
+      "name": "Harness",
+      "hue": 0,
+      "symbol": "wrench.and.screwdriver"
+    },
+    {
+      "hue": 0,
+      "id": "1225CDE8-8429-4B1F-A2FF-753AB0C0A911",
+      "name": "Other",
+      "symbol": "bookmark",
+      "parentID": "A5FAA392-4FB0-4D60-97F7-4627BD682BD9",
+      "domains": [],
+      "keywords": []
+    },
+    {
+      "id": "ai",
+      "symbol": "sparkle",
+      "hue": 0.46,
+      "keywords": [],
+      "domains": [
+        "chatgpt.com",
+        "claude.ai",
+        "gemini.google.com",
+        "perplexity.ai",
+        "grok.com"
+      ],
+      "name": "AI assistants"
+    },
+    {
+      "keywords": [
+        "syllabus",
+        "office hours",
+        "lecture notes"
+      ],
+      "hue": 0.74,
+      "name": "Courses & learning",
+      "id": "learning",
+      "symbol": "graduationcap",
+      "domains": [
+        "canvas.net",
+        "instructure.com",
+        "coursera.org",
+        "edx.org",
+        "gradescope.com",
+        "khanacademy.org",
+        "prairielearn.com",
+        "zybooks.com",
+        "edu"
+      ]
+    },
+    {
+      "id": "writing",
+      "keywords": [],
+      "symbol": "doc.text",
+      "hue": 0.04,
+      "name": "Writing & documents",
+      "domains": [
+        "docs.google.com",
+        "drive.google.com",
+        "notion.so",
+        "overleaf.com",
+        "dropbox.com",
+        "sharepoint.com",
+        "figma.com",
+        "coda.io"
+      ]
+    },
+    {
+      "name": "Communication",
+      "hue": 0.15,
+      "domains": [
+        "mail.google.com",
+        "outlook.com",
+        "outlook.office.com",
+        "slack.com",
+        "discord.com",
+        "linear.app",
+        "linkedin.com",
+        "reddit.com",
+        "x.com",
+        "bsky.app",
+        "twitter.com"
+      ],
+      "id": "communication",
+      "keywords": [],
+      "symbol": "bubble.left.and.bubble.right"
+    },
+    {
+      "name": "Media",
+      "hue": 0.94,
+      "symbol": "play.rectangle",
+      "keywords": [],
+      "domains": [
+        "youtube.com",
+        "youtu.be",
+        "vimeo.com",
+        "twitch.tv",
+        "spotify.com",
+        "netflix.com"
+      ],
+      "id": "media"
+    },
+    {
+      "domains": [
+        "github.com",
+        "gitlab.com",
+        "codeberg.org",
+        "stackoverflow.com",
+        "huggingface.co",
+        "developer.mozilla.org",
+        "developer.apple.com",
+        "pytorch.org",
+        "rust-lang.org",
+        "godbolt.org",
+        "llvm.org",
+        "pypi.org",
+        "npmjs.com",
+        "docs.",
+        "developer.",
+        "/docs/"
+      ],
+      "name": "Code & engineering",
+      "keywords": [
+        "api reference",
+        "documentation",
+        "language reference"
+      ],
+      "symbol": "chevron.left.forwardslash.chevron.right",
+      "id": "engineering",
+      "hue": 0.58
+    },
+    {
+      "symbol": "rectangle.on.rectangle",
+      "domains": [],
+      "keywords": [],
+      "name": "Everything else",
+      "hue": 0.66,
+      "id": "other"
+    }
+  ],
+  "siteRules": {
+    "x.com": "A5FAA392-4FB0-4D60-97F7-4627BD682BD9",
+    "thinkingmachines.ai": "A5FAA392-4FB0-4D60-97F7-4627BD682BD9",
+    "z.ai": "A5FAA392-4FB0-4D60-97F7-4627BD682BD9",
+    "alignment.anthropic.com": "A5FAA392-4FB0-4D60-97F7-4627BD682BD9",
+    "twitter.com": "A5FAA392-4FB0-4D60-97F7-4627BD682BD9",
+    "docs.google.com": "work-docs"
+  },
+  "autoSort": [
+    "A5FAA392-4FB0-4D60-97F7-4627BD682BD9",
+    "other"
+  ]
+}

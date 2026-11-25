@@ -1,0 +1,100 @@
+#!/usr/bin/env python3
+"""Load a shared shelf setup (shelves, nesting, site rules, auto-sort) into Reading Desk.
+
+Quit Reading Desk first. Your current settings are backed up before anything is
+written, and the command prints how to restore them.
+
+Examples:
+  hooks/load-config config/avni-shelves.json --dry-run   # show what would change
+  hooks/load-config config/avni-shelves.json
+"""
+from __future__ import annotations  # `X | None` hints on macOS's Python 3.9
+
+import argparse, json, os, subprocess, sys, time
+
+DOMAIN = "dev.readingdesk.mac"
+BACKUPS = os.path.expanduser("~/Library/Application Support/dev.readingdesk.mac")
+
+
+def app_running() -> bool:
+    """Whether Reading Desk is open. It would overwrite the new settings on quit.
+
+    Returns:
+    - True if a `ReadingDesk` process is running.
+    """
+    return subprocess.run(["pgrep", "-x", "ReadingDesk"], capture_output=True).returncode == 0
+
+
+def load(path: str) -> dict:
+    """Read and sanity-check a config file.
+
+    Args:
+    - path: a JSON file with these keys:
+      - `version`: 1.
+      - `shelves`: the list the app saves as `shelves.v2` (id, name, symbol, hue,
+        domains, keywords, optional parentID).
+      - `siteRules`: site -> shelf id, e.g. {"x.com": "<id>"}.
+      - `autoSort`: shelf ids with auto-sort on.
+
+    Returns:
+    - The parsed config. Exits with a message if it doesn't look right.
+    """
+    with open(path) as f:
+        config = json.load(f)
+    if config.get("version") != 1 or not isinstance(config.get("shelves"), list):
+        sys.exit(f"{path} isn't a Reading Desk config (version 1).")
+    ids = {s.get("id") for s in config["shelves"]}
+    if "other" not in ids:
+        sys.exit(f"{path} has no 'Everything else' shelf (id 'other').")
+    bad = [site for site, shelf in config.get("siteRules", {}).items() if shelf not in ids]
+    if bad:
+        sys.exit(f"{path} pins sites to shelves it doesn't define: {', '.join(bad)}")
+    return config
+
+
+def write(domain: str, key: str, *value: str) -> None:
+    """Set one preference with `defaults write`, exiting if it fails."""
+    subprocess.run(["defaults", "write", domain, key, *value], check=True)
+
+
+def main() -> None:
+    p = argparse.ArgumentParser(prog="load-config", description=__doc__,
+                                formatter_class=argparse.RawDescriptionHelpFormatter)
+    p.add_argument("file", help="config JSON, e.g. config/avni-shelves.json")
+    p.add_argument("--dry-run", action="store_true", help="show what would change without writing")
+    p.add_argument("--domain", default=DOMAIN, help=argparse.SUPPRESS)  # for testing against a scratch domain
+    a = p.parse_args()
+
+    config = load(a.file)
+    shelves, rules, auto = config["shelves"], config.get("siteRules", {}), config.get("autoSort", [])
+    by_id = {s["id"]: s for s in shelves}
+
+    def path(shelf: dict) -> str:
+        parent = by_id.get(shelf.get("parentID"))
+        return f"{path(parent)} › {shelf['name']}" if parent else shelf["name"]
+
+    print(f"{len(shelves)} shelves:")
+    for s in shelves:
+        print(f"  {path(s)}")
+    print(f"{len(rules)} pinned site(s): " + ", ".join(f"{site} → {path(by_id[i])}" for site, i in rules.items()))
+    print("Auto-sort on: " + (", ".join(path(by_id[i]) for i in auto if i in by_id) or "none"))
+    if a.dry_run:
+        print("Dry run: nothing changed.")
+        return
+    if a.domain == DOMAIN and app_running():
+        sys.exit("Quit Reading Desk first (⌘Q); it saves its own settings on the way out.")
+
+    # Back up first; tab-by-tab assignments are kept as they are.
+    os.makedirs(BACKUPS, exist_ok=True)
+    backup = os.path.join(BACKUPS, f"prefs-backup-{time.strftime('%Y%m%d-%H%M%S')}.plist")
+    subprocess.run(["defaults", "export", a.domain, backup], check=True)
+
+    write(a.domain, "shelves.v2", "-data", json.dumps(shelves).encode().hex())
+    write(a.domain, "siteRules.v2", "-dict", *[x for kv in rules.items() for x in kv])
+    write(a.domain, "autoSort.v1", "-array", *auto)
+    print(f"Loaded. Your old settings are in {backup}")
+    print(f"To undo: quit Reading Desk, then run  defaults import {a.domain} '{backup}'")
+
+
+if __name__ == "__main__":
+    main()
